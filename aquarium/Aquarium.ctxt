@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Aquarium()
+comment1.params=evt
+comment1.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment2.params=
+comment2.target=java.util.ArrayList\ getCreatures()
+comment3.params=
+comment3.target=void\ fillWithCreatures()
+comment4.params=
+comment4.target=void\ empty()
+comment5.params=frame
+comment5.target=void\ setFrame(ui.AquariumFrame)
+comment6.params=
+comment6.target=void\ updateCreatureLocations()
+comment7.params=
+comment7.target=void\ start()
+comment8.params=
+comment8.target=void\ stop()
+numComments=9

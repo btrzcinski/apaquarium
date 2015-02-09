@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=name\ fileName\ speed
+comment0.target=LineSwimmer(java.lang.String,\ java.lang.String,\ int)
+comment1.params=
+comment1.target=void\ updateLocation()
+comment2.params=
+comment2.target=void\ hitLeftWall()
+comment3.params=
+comment3.target=void\ hitRightWall()
+comment4.params=
+comment4.target=void\ hitFloor()
+comment5.params=
+comment5.target=void\ hitSurface()
+comment6.params=
+comment6.target=void\ hitClouds()
+numComments=7

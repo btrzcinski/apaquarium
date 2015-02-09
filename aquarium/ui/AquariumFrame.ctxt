@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=aquarium\ width\ height
+comment0.target=AquariumFrame(aquarium.Aquarium,\ int,\ int)
+comment1.params=
+comment1.target=void\ repaintCanvas()
+numComments=2
