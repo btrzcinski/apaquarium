@@ -1,6 +1,6 @@
 package aquarium.creatures;
 
-public abstract class LineSwimmer extends ImageCreature
+public class LineSwimmer extends ImageCreature
 {
 
     private int deltaX;
