@@ -1,13 +1,16 @@
 import aquarium.Aquarium;
 import aquarium.ui.AquariumFrame;
 
+/**
+ * Class holding the main method for the AP Aquarium.
+ */
 public class AquariumMain
 {
     /**
      * The main method for the AP Aquarium. The method:
      * <ul>
-     * <li>Creates an Aquarium, and calls {@link Aquarium#fillWithCreatures}
-     * <li>Creates an AquariumFrame, displays it, and starts the Aquarium.
+     * <li>Creates an {@link Aquarium}, and calls {@link Aquarium#fillWithCreatures}
+     * <li>Creates an {@link AquariumFrame}, displays it, and starts the Aquarium.
      * </ul>
      * 
      * @param   args    Command line arguments (unused)

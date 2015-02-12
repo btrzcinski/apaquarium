@@ -9,12 +9,22 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
+/**
+ * A Creature which can be given the name of a file residing in &quot;aquarium\images&quot;
+ * and will use that image file as the appearance.
+ */
 public abstract class ImageCreature implements Creature
 {
     private String name;
     private Point location;
     private BufferedImage appearance;
     
+    /**
+     * Creates an ImageCreature.
+     * 
+     * @param   name    The friendly name of the ImageCreature
+     * @param   fileName    The name of the image for this ImageCreature (e.g., &quot;image.jpg&quot;)
+     */
     public ImageCreature(String name, String fileName)
     {
         this.name = name;
