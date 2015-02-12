@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=aquarium
-comment0.target=AquariumPanel(aquarium.Aquarium)
-comment1.params=
-comment1.target=java.awt.Dimension\ getPreferredSize()
-comment2.params=g
-comment2.target=void\ paintComponent(java.awt.Graphics)
-numComments=3
