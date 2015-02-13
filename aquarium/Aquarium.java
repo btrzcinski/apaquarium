@@ -107,33 +107,42 @@ public class Aquarium
     {
         for(Creature c : creatures)
         {
-            c.updateLocation();
-            
             BufferedImage img = c.getAppearance();
             int w = img.getWidth();
             int h = img.getHeight();
+
             // (x,y) are upper left coordinate here
-            int x = c.getLocation().x - (w / 2);
-            int y = c.getLocation().y - (h / 2);
-            if(x <= 0)
-            {
-                c.hitLeftWall();
-            }
-            if(y <= -SKY_HEIGHT)
+            int formerX = c.getLocation().x - (w / 2);
+            int formerY = c.getLocation().y - (h / 2);
+            c.updateLocation();
+            int newX = c.getLocation().x - (w / 2);
+            int newY = c.getLocation().y - (h / 2);
+
+            if((formerY > -SKY_HEIGHT && newY <= -SKY_HEIGHT) ||
+                    (formerY < -SKY_HEIGHT && newY >= -SKY_HEIGHT))
             {
                 c.hitClouds();
             }
-            else if(y <= 0 && y >= -w)
+            if((formerY < -h && newY >= -h) ||
+                    (formerY > 0 && newY <= 0))
             {
                 c.hitSurface();
             }
-            if(x >= WIDTH - w)
-            {
-                c.hitRightWall();
-            }
-            if(y >= HEIGHT - h)
+            if((formerY < (HEIGHT - h) && newY >= (HEIGHT - h)) ||
+                    (formerY > HEIGHT && newY <= HEIGHT))
             {
                 c.hitFloor();
+            }
+
+            if((formerX > 0 && newX <= 0) ||
+                    (formerX < 0 && newX >= 0))
+            {
+                c.hitLeftWall();
+            }
+            if((formerX < (WIDTH - w) && newX >= (WIDTH - w)) ||
+                    (formerX > WIDTH && newX <= WIDTH))
+            {
+                c.hitRightWall();
             }
         }
         
