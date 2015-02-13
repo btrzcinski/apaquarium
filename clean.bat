@@ -1,4 +1,6 @@
 @echo off
 
-cd %~dp0
+pushd %~dp0
 del /S /Q *.class
+popd
+
