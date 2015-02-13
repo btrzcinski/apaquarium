@@ -1,3 +1,5 @@
 @echo off
 
-java -cp %~dp0 AquariumMain
+set CLASSPATH=%~dp0
+java AquariumMain
+
