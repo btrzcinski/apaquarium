@@ -14,3 +14,7 @@ hs_err_pid*
 # Windows Explorer image cache
 Thumbs.db
 
+# VIM swap files on Windows
+.*.swp
+
+
