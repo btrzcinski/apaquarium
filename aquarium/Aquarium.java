@@ -92,16 +92,28 @@ public class Aquarium
     /**
      * Calls the {@link Creature#updateLocation} method for each {@link Creature} in the
      * Aquarium, and then calls:
-     * <ul>
+     *
+     * <ol>
+     * <li>{@link Creature#hitClouds} if the Creature has touched or gone past the top of the sky.
+     * <li>{@link Creature#hitSurface} if the Creature is touching the surface of the water;
+     * <li>{@link Creature#hitFloor} if the bottom edge of the Creature has touched or gone
+     * past the Aquarium floor;
      * <li>{@link Creature#hitLeftWall} if the left edge of the Creature has touched or gone
      * past the left wall;
      * <li>{@link Creature#hitRightWall} if the right edge of the Creature has touched or gone
      * past the right wall;
-     * <li>{@link Creature#hitFloor} if the bottom edge of the Creature has touched or gone
-     * past the Aquarium floor;
-     * <li>{@link Creature#hitSurface} if the Creature is touching the surface of the water;
-     * <li>{@link Creature#hitClouds} if the Creature has touched or gone past the top of the sky.
-     * </ul>
+     * </ol>
+     *
+     * These methods are called only once for a given movement. For example, if a creature approaches
+     * and touches the left wall, then stays on or past the wall, {@link Creature#hitLeftWall} will be
+     * called only once. If the creature reapproaches the wall and moves past it in the other direction,
+     * {@link Creature#hitLeftWall} will be called again.
+     *
+     * A {@link Creature} can cause more than one event to be triggered simultaneously; for example, 
+     * if a {@link Creature} moves from below the floor to above the clouds, {@link Creature#hitClouds},
+     * {@link Creature#hitSurface}, and {@link Creature#hitFloor} will all be called.
+     *
+     * If multiple events occur at once, they will be called in the order they are listed above.
      */
     public void updateCreatureLocations()
     {
