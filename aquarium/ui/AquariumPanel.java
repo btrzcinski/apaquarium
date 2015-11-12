@@ -3,8 +3,8 @@ package aquarium.ui;
 import javax.swing.JPanel;
 
 import aquarium.Aquarium;
-import aquarium.creatures.BoringFish;
 import aquarium.creatures.Creature;
+import aquarium.creatures.LineSwimmer;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,14 +1,17 @@
 package aquarium.creatures;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
- * A LineSwimmer is an ImageCreature which:
+ * A LineSwimmer is a PaintedCreature which:
  * <ul>
  * <li>Moves at a given whole integer slope speed, in a straight line;
  * <li>Bounces off of the walls, the floor, and the surface of the water,
  * in order to stay underwater.
  * </ul>
  */
-public class LineSwimmer extends ImageCreature
+public class LineSwimmer extends PaintedCreature
 {
 
     private int deltaX;
@@ -18,12 +21,11 @@ public class LineSwimmer extends ImageCreature
      * Creates a LineSwimmer.
      * 
      * @param   name    The friendly name for this LineSwimmer
-     * @param   fileName    The name of the image file representing this LineSwimmer
      * @param   speed   The whole integer slope indicating how fast this LineSwimmer will move
      */
-    public LineSwimmer(String name, String fileName, int speed)
+    public LineSwimmer(String name, int speed)
     {
-        super(name, fileName);
+        super(name, 120, 100);
         this.deltaX = speed;
         this.deltaY = speed;
     }
@@ -86,4 +88,16 @@ public class LineSwimmer extends ImageCreature
         deltaY = -deltaY;
     }
 
+    protected void paint(Graphics g)
+    {
+        //g.setColor(Color.WHITE);
+        //g.fillRect(0, 0, this.width, this.height);
+        g.setColor(Color.YELLOW);
+        
+        g.drawLine(0, (this.height / 2) - 15, 0, (this.height / 2) + 15);
+        g.drawLine(0, (this.height / 2) - 15, (this.width / 2) + 10, this.height);
+        g.drawLine(0, (this.height / 2) + 15, (this.width / 2) + 10, 0);
+        g.drawLine((this.width / 2) + 10, this.height, this.width, this.height / 2);
+        g.drawLine((this.width / 2) + 10, 0, this.width, this.height / 2);
+    }
 }

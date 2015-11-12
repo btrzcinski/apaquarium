@@ -68,7 +68,7 @@ public class Aquarium
      */
     public void fillWithCreatures()
     {
-        creatures.add(new BoringFish("Bob"));
+        creatures.add(new LineSwimmer("Bob", 5));
     }
 
     /**
