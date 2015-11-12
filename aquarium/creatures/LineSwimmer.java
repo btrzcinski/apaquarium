@@ -13,7 +13,6 @@ import java.awt.Graphics;
  */
 public class LineSwimmer extends PaintedCreature
 {
-
     private int deltaX;
     private int deltaY;
 
@@ -90,8 +89,6 @@ public class LineSwimmer extends PaintedCreature
 
     protected void paint(Graphics g)
     {
-        //g.setColor(Color.WHITE);
-        //g.fillRect(0, 0, this.width, this.height);
         g.setColor(Color.YELLOW);
         
         g.drawLine(0, (this.height / 2) - 15, 0, (this.height / 2) + 15);
