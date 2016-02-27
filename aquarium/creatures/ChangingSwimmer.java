@@ -58,10 +58,10 @@ public class ChangingSwimmer extends PaintedCreature
             this.deltaX = x;            
         }
         // Instead of setting the X speed to 0, set it to the slowest it can go: 1 (or -1)
-        else {
-            this.deltaX = this.deltaX / this.deltaX;
+        else
+        {
+            this.deltaX = this.deltaX / Math.abs(this.deltaX);
         }
-
     }
     
     /**
