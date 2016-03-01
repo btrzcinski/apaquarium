@@ -207,6 +207,71 @@ public class ControllerPanel extends JPanel
                     parameters.add(paramVal);
                     createdParamSuccessfully = true;
                 }
+                else if (paramCls.getName().equals("boolean"))
+                {
+                    String lowerCaseVal = paramVal.toLowerCase();
+                    if (lowerCaseVal.equals("true") || lowerCaseVal.equals("false"))
+                    {
+                        Boolean b = Boolean.valueOf(paramVal);
+                        parameters.add(b);
+                        createdParamSuccessfully = true;                        
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid boolean. Type the word 'true' or 'false'.",
+                            "Not a valid boolean",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else if (paramCls.getName().equals("byte"))
+                {
+                    try
+                    {                        
+                        Byte b = Byte.valueOf(paramVal);
+                        parameters.add(b);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid byte. Please try again.",
+                            "Not a valid byte",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else if (paramCls.getName().equals("char"))
+                {
+                    if (paramVal.length() != 1)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid char. Type exactly one character.",
+                            "Not a valid char",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                    else
+                    {
+                        Character ch = Character.valueOf(paramVal.charAt(0));
+                        parameters.add(ch);
+                        createdParamSuccessfully = true;                        
+                    }
+                }
+                else if (paramCls.getName().equals("short"))
+                {
+                    try
+                    {
+                        Short s = Short.valueOf(paramVal);
+                        parameters.add(s);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid short. Please try again.",
+                            "Not a valid short",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
                 else if (paramCls.getName().equals("int"))
                 {
                     try
@@ -221,12 +286,70 @@ public class ControllerPanel extends JPanel
                             "That wasn't a valid integer. Please try again.",
                             "Not a valid integer",
                             JOptionPane.ERROR_MESSAGE);
-                        continue;
                     }
+                }
+                else if (paramCls.getName().equals("long"))
+                {
+                    try
+                    {
+                        Long l = Long.valueOf(paramVal);
+                        parameters.add(l);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid long. Please try again.",
+                            "Not a valid long",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else if (paramCls.getName().equals("float"))
+                {
+                    try
+                    {
+                        Float f = Float.valueOf(paramVal);
+                        parameters.add(f);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid float. Please try again.",
+                            "Not a valid float",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else if (paramCls.getName().equals("double"))
+                {
+                    try
+                    {
+                        Double d = Double.valueOf(paramVal);
+                        parameters.add(d);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid double. Please try again.",
+                            "Not a valid double",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this,
+                        "Unknown parameter type: " + paramCls.getName(),
+                        "Unknown parameter type",
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
             
-            numParam++;
+            if (createdParamSuccessfully)
+            {
+                numParam++;
+            }
         }
         
         try
