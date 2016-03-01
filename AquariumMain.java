@@ -1,5 +1,8 @@
+import java.awt.Point;
+
 import aquarium.Aquarium;
 import aquarium.ui.AquariumFrame;
+import aquarium.ui.ControllerFrame;
 
 /**
  * Class holding the main method for the AP Aquarium.
@@ -17,7 +20,7 @@ public class AquariumMain
      * @see             Aquarium#fillWithCreatures
      */
     public static void main(String[] args)
-    {        
+    {
         Aquarium aquarium = new Aquarium();
         aquarium.fillWithCreatures();
         
@@ -26,7 +29,12 @@ public class AquariumMain
                 aquarium, Aquarium.WIDTH, Aquarium.HEIGHT + Aquarium.SKY_HEIGHT + 22);
         aquarium.setFrame(aquariumFrame);
         aquariumFrame.setVisible(true);
-        aquarium.start();
+        
+        ControllerFrame controllerFrame = new ControllerFrame(aquarium);
+        controllerFrame.setVisible(true);
+        
+        // Move controller to the right of the aquarium
+        Point aquariumFrameLoc = aquariumFrame.getLocation();
+        controllerFrame.setLocation(aquariumFrameLoc.x + aquariumFrame.getWidth(), aquariumFrameLoc.y);
     }
-
 }

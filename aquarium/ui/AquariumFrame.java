@@ -1,6 +1,5 @@
 package aquarium.ui;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import aquarium.Aquarium;
@@ -15,6 +14,7 @@ public class AquariumFrame extends JFrame
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
+		setResizable(false);
 
 		this.aquariumPanel = new AquariumPanel(aquarium);
 		add(aquariumPanel);

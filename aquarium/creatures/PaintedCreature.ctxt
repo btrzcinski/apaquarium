@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=name\ width\ height
 comment0.target=PaintedCreature(java.lang.String,\ int,\ int)
-comment0.text=\n\ Creates\ an\ PaintedCreature.\n\ \n\ @param\ \ \ name\ \ \ \ The\ friendly\ name\ of\ the\ PaintedCreature\n\ @param\ \ \ width\ \ \ The\ desired\ width\ of\ this\ PaintedCreature\n\ @param\ \ \ height\ \ The\ desired\ height\ of\ this\ PaintedCreature\n
+comment0.text=\r\n\ Creates\ an\ PaintedCreature.\r\n\ \r\n\ @param\ \ \ name\ \ \ \ The\ friendly\ name\ of\ the\ PaintedCreature\r\n\ @param\ \ \ width\ \ \ The\ desired\ width\ of\ this\ PaintedCreature\r\n\ @param\ \ \ height\ \ The\ desired\ height\ of\ this\ PaintedCreature\r\n
 comment1.params=
 comment1.target=java.lang.String\ getName()
 comment10.params=g

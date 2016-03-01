@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.Timer;
 
@@ -31,7 +33,7 @@ public class Aquarium
      */
     public static final int SKY_HEIGHT = 300;
     
-    private ArrayList<Creature> creatures;
+    private List<Creature> creatures;
     private Timer updateTimer;
     private AquariumFrame frame = null;
     
@@ -42,7 +44,7 @@ public class Aquarium
      */
     public Aquarium()
     {
-        this.creatures = new ArrayList<Creature>();
+        this.creatures = Collections.synchronizedList(new ArrayList<Creature>());
         
         ActionListener timerAction = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -56,11 +58,31 @@ public class Aquarium
     /**
      * Gets the creatures in the Aquarium.
      * 
+     * Make sure you synchronize access to the collection with a synchronized block.
+     * 
      * @return     The list of Creature objects inhabiting the Aquarium.
      */
-    public ArrayList<Creature> getCreatures()
+    public List<Creature> getCreatures()
     {
         return creatures;
+    }
+    
+    /**
+     * Adds a Creature to the Aquarium.
+     * 
+     * @param c The Creature to add.
+     */
+    public void addCreature(Creature c)
+    {
+        synchronized (creatures)
+        {
+            creatures.add(c);
+        }
+        
+        if (frame != null)
+        {
+            frame.repaintCanvas();
+        }
     }
     
     /**
@@ -68,7 +90,15 @@ public class Aquarium
      */
     public void fillWithCreatures()
     {
-        creatures.add(new LineSwimmer("Bob", 5));
+        synchronized (creatures)
+        {
+            creatures.add(new LineSwimmer("Bob", 5));
+        }
+        
+        if (frame != null)
+        {
+            frame.repaintCanvas();
+        }
     }
 
     /**
@@ -76,7 +106,15 @@ public class Aquarium
      */
     public void empty()
     {
-        creatures.clear();
+        synchronized (creatures)
+        {            
+            creatures.clear();
+        }
+        
+        if (frame != null)
+        {
+            frame.repaintCanvas();
+        }
     }
     
     /**
@@ -117,7 +155,7 @@ public class Aquarium
      */
     public void updateCreatureLocations()
     {
-        for(Creature c : creatures)
+        for (Creature c : creatures)
         {
             BufferedImage img = c.getAppearance();
             int w = img.getWidth();
@@ -130,35 +168,35 @@ public class Aquarium
             int newX = c.getLocation().x - (w / 2);
             int newY = c.getLocation().y - (h / 2);
 
-            if((formerY > -SKY_HEIGHT && newY <= -SKY_HEIGHT) ||
+            if ((formerY > -SKY_HEIGHT && newY <= -SKY_HEIGHT) ||
                     (formerY < -SKY_HEIGHT && newY >= -SKY_HEIGHT))
             {
                 c.hitClouds();
             }
-            if((formerY < -h && newY >= -h) ||
+            if ((formerY < -h && newY >= -h) ||
                     (formerY > 0 && newY <= 0))
             {
                 c.hitSurface();
             }
-            if((formerY < (HEIGHT - h) && newY >= (HEIGHT - h)) ||
+            if ((formerY < (HEIGHT - h) && newY >= (HEIGHT - h)) ||
                     (formerY > HEIGHT && newY <= HEIGHT))
             {
                 c.hitFloor();
             }
 
-            if((formerX > 0 && newX <= 0) ||
+            if ((formerX > 0 && newX <= 0) ||
                     (formerX < 0 && newX >= 0))
             {
                 c.hitLeftWall();
             }
-            if((formerX < (WIDTH - w) && newX >= (WIDTH - w)) ||
+            if ((formerX < (WIDTH - w) && newX >= (WIDTH - w)) ||
                     (formerX > WIDTH && newX <= WIDTH))
             {
                 c.hitRightWall();
             }
         }
         
-        if(frame != null)
+        if (frame != null)
         {
             frame.repaintCanvas();
         }
@@ -178,5 +216,15 @@ public class Aquarium
     public void stop()
     {
         updateTimer.stop();
+    }
+    
+    /**
+     * Returns true if the Aquarium simulation is running.
+     * 
+     * @return  true if the Aquarium simulation is running
+     */
+    public boolean isRunning()
+    {
+        return updateTimer.isRunning();
     }
 }
