@@ -14,7 +14,7 @@ public class ControllerFrame extends JFrame
         super("Simulation");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(300, 300));
+        setMinimumSize(new Dimension(300, 450));
         setResizable(false);
         
         this.controllerPanel = new ControllerPanel(aquarium);

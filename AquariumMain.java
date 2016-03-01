@@ -28,13 +28,14 @@ public class AquariumMain
         AquariumFrame aquariumFrame = new AquariumFrame(
                 aquarium, Aquarium.WIDTH, Aquarium.HEIGHT + Aquarium.SKY_HEIGHT + 22);
         aquarium.setFrame(aquariumFrame);
-        aquariumFrame.setVisible(true);
         
         ControllerFrame controllerFrame = new ControllerFrame(aquarium);
-        controllerFrame.setVisible(true);
         
         // Move controller to the right of the aquarium
         Point aquariumFrameLoc = aquariumFrame.getLocation();
         controllerFrame.setLocation(aquariumFrameLoc.x + aquariumFrame.getWidth(), aquariumFrameLoc.y);
+
+        controllerFrame.setVisible(true);
+        aquariumFrame.setVisible(true);        
     }
 }

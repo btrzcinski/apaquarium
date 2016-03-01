@@ -86,6 +86,24 @@ public class Aquarium
     }
     
     /**
+     * Removes a Creature from the Aquarium.
+     * 
+     * @param c The Creature to remove.
+     */
+    public void removeCreature(Creature c)
+    {
+        synchronized (creatures)
+        {
+            creatures.remove(c);
+        }
+        
+        if (frame != null)
+        {
+            frame.repaintCanvas();
+        }
+    }
+    
+    /**
      * Fills the Aquarium by creating and adding {@link Creature}s.
      */
     public void fillWithCreatures()

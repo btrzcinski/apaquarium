@@ -2,6 +2,7 @@ package aquarium.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -24,16 +26,35 @@ import aquarium.creatures.Creature;
 
 public class ControllerPanel extends JPanel
 {
+    private class CreatureViewModel
+    {
+        private Creature creature;
+        
+        public CreatureViewModel(Creature creature)
+        {
+            this.creature = creature;
+        }
+        
+        public Creature getCreature()
+        {
+            return this.creature;
+        }
+        
+        public String toString()
+        {
+            return creature.getName() + " (" + creature.getClass().getSimpleName() + ")";
+        }
+    }
+    
     private Aquarium aquarium;
-    private JList<Constructor> creatureList;
-    private Vector<Constructor> creatureConstructors;
+    private JList<Constructor> constructorList;
+    private JList<CreatureViewModel> creatureList;
     
     public ControllerPanel(Aquarium aquarium)
     {
         super(new BorderLayout());
         this.aquarium = aquarium;
         
-        this.creatureConstructors = findConstructibleCreatureClasses();
         initializeUI();
     }
     
@@ -76,8 +97,7 @@ public class ControllerPanel extends JPanel
             public void actionPerformed(ActionEvent evt)
             {
                 aquarium.empty();
-                
-                startStopButton.setText(createStartStopButtonText());
+                creatureList.setListData(createViewModelsForCreatures());
             }
         });
         buttonPanel.add(emptyButton);
@@ -88,25 +108,24 @@ public class ControllerPanel extends JPanel
             public void actionPerformed(ActionEvent evt)
             {
                 aquarium.fillWithCreatures();
-                
-                startStopButton.setText(createStartStopButtonText());
+                creatureList.setListData(createViewModelsForCreatures());
             }
         });
         buttonPanel.add(fillWithCreaturesButton);
         
         add(buttonPanel, BorderLayout.NORTH);
         
-        creatureList = new JList<Constructor>(creatureConstructors);
-        add(creatureList, BorderLayout.CENTER);
+        JPanel addCreaturesPanel = new JPanel(new BorderLayout());
+        constructorList = new JList<Constructor>(findConstructibleCreatureClasses());
+        addCreaturesPanel.add(constructorList, BorderLayout.CENTER);
         
-        JPanel addPanel = new JPanel(new FlowLayout());
-        
+        JPanel addButtonPanel = new JPanel(new FlowLayout());
         JButton addButton = new JButton("Add Selected Creature");
         addButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
-                Constructor c = creatureList.getSelectedValue();
+                Constructor c = constructorList.getSelectedValue();
                 if (c == null)
                 {
                     JOptionPane.showMessageDialog(ControllerPanel.this, "Select a Creature constructor from the list.",
@@ -115,74 +134,124 @@ public class ControllerPanel extends JPanel
                     return;
                 }
                 
-                String constructingMsg = "Constructing: " + c.toString();
-                ArrayList<Object> parameters = new ArrayList<Object>();
-                int numParam = 0;
-                for (Class<?> paramCls : c.getParameterTypes())
-                {
-                    if (!paramCls.isPrimitive() && !paramCls.getName().equals("java.lang.String"))
-                    {
-                        JOptionPane.showMessageDialog(ControllerPanel.this,
-                            "This constructor is too complex. Modify Aquarium.fillWithCreatures instead to use it.",
-                            "Constructor too complex",
-                            JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    
-                    boolean createdParamSuccessfully = false;
-                    
-                    while (!createdParamSuccessfully)
-                    {                            
-                        String paramVal = JOptionPane.showInputDialog(ControllerPanel.this,
-                            constructingMsg + "\n\n" + "Input value for parameter " + numParam + " (" + paramCls.getSimpleName() + ")");
-                        if (paramVal == null)
-                        {
-                            // User clicked cancel
-                            return;
-                        }
-                        
-                        if (paramCls.getName().equals("java.lang.String"))
-                        {
-                            parameters.add(paramVal);
-                            createdParamSuccessfully = true;
-                        }
-                        else if (paramCls.getName().equals("int"))
-                        {
-                            try
-                            {
-                                Integer i = Integer.valueOf(paramVal);
-                                parameters.add(i);
-                                createdParamSuccessfully = true;
-                            }
-                            catch (NumberFormatException e)
-                            {
-                                JOptionPane.showMessageDialog(ControllerPanel.this,
-                                    "That wasn't a valid integer. Please try again.",
-                                    "Not a valid integer",
-                                    JOptionPane.ERROR_MESSAGE);
-                                continue;
-                            }
-                        }
-                    }
-                    
-                    numParam++;
-                }
-                
-                try
-                {
-                    Creature newCreature = (Creature)c.newInstance(parameters.toArray());
-                    aquarium.addCreature(newCreature);
-                }
-                catch (InstantiationException|IllegalAccessException|InvocationTargetException e)
-                {
-                    e.printStackTrace();
-                }
-                
+                createNewCreature(c);
+                creatureList.setListData(createViewModelsForCreatures());
             }
         });
-        addPanel.add(addButton);
+        addButtonPanel.add(addButton);
+        addCreaturesPanel.add(addButtonPanel, BorderLayout.SOUTH);
         
-        add(addPanel, BorderLayout.SOUTH);
+        JPanel removeCreaturesPanel = new JPanel(new BorderLayout());
+        creatureList = new JList<CreatureViewModel>(createViewModelsForCreatures());
+        removeCreaturesPanel.add(creatureList, BorderLayout.CENTER);
+        
+        JPanel removeButtonPanel = new JPanel(new FlowLayout());
+        JButton removeButton = new JButton("Remove Selected Creature");
+        removeButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                CreatureViewModel c = creatureList.getSelectedValue();
+                if (c == null)
+                {
+                    JOptionPane.showMessageDialog(ControllerPanel.this, "Select a Creature to remove from the list.",
+                        "No Creature selected",
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                aquarium.removeCreature(c.getCreature());
+                creatureList.setListData(createViewModelsForCreatures());
+            }
+        });
+        removeButtonPanel.add(removeButton);
+        removeCreaturesPanel.add(removeButtonPanel, BorderLayout.SOUTH);
+        
+        JPanel addRemoveCreaturesPanel = new JPanel(new GridLayout(2, 1));
+        addRemoveCreaturesPanel.add(addCreaturesPanel);
+        addRemoveCreaturesPanel.add(removeCreaturesPanel);
+        
+        add(addRemoveCreaturesPanel, BorderLayout.CENTER);
+    }
+    
+    private void createNewCreature(Constructor c)
+    {
+        String constructingMsg = "Constructing: " + c.toString();
+        ArrayList<Object> parameters = new ArrayList<Object>();
+        int numParam = 0;
+        for (Class<?> paramCls : c.getParameterTypes())
+        {
+            if (!paramCls.isPrimitive() && !paramCls.getName().equals("java.lang.String"))
+            {
+                JOptionPane.showMessageDialog(this,
+                    "This constructor is too complex. Modify Aquarium.fillWithCreatures instead to use it.",
+                    "Constructor too complex",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            boolean createdParamSuccessfully = false;
+            
+            while (!createdParamSuccessfully)
+            {                            
+                String paramVal = JOptionPane.showInputDialog(this,
+                    constructingMsg + "\n\n" + "Input value for parameter " + numParam + " (" + paramCls.getSimpleName() + ")");
+                if (paramVal == null)
+                {
+                    // User clicked cancel
+                    return;
+                }
+                
+                if (paramCls.getName().equals("java.lang.String"))
+                {
+                    parameters.add(paramVal);
+                    createdParamSuccessfully = true;
+                }
+                else if (paramCls.getName().equals("int"))
+                {
+                    try
+                    {
+                        Integer i = Integer.valueOf(paramVal);
+                        parameters.add(i);
+                        createdParamSuccessfully = true;
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                            "That wasn't a valid integer. Please try again.",
+                            "Not a valid integer",
+                            JOptionPane.ERROR_MESSAGE);
+                        continue;
+                    }
+                }
+            }
+            
+            numParam++;
+        }
+        
+        try
+        {
+            Creature newCreature = (Creature)c.newInstance(parameters.toArray());
+            aquarium.addCreature(newCreature);
+        }
+        catch (InstantiationException|IllegalAccessException|InvocationTargetException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    private Vector<CreatureViewModel> createViewModelsForCreatures()
+    {
+        Vector<CreatureViewModel> vec = new Vector<CreatureViewModel>();
+        List<Creature> creatures = aquarium.getCreatures();
+        synchronized(creatures)
+        {
+            for (Creature c : aquarium.getCreatures())
+            {
+                vec.add(new CreatureViewModel(c));
+            }
+        }
+        return vec;
     }
     
     private Vector<Constructor> findConstructibleCreatureClasses()
