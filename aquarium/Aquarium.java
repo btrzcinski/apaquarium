@@ -110,7 +110,10 @@ public class Aquarium
     {
         synchronized (creatures)
         {
-            creatures.add(new LineSwimmer("Bob", 5));
+            // Construct and add any Creatures you want here.
+            //
+            // For example:
+            // creatures.add(new SomethingFish(...));
         }
         
         if (frame != null)
