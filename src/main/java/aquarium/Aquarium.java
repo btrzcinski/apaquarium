@@ -1,7 +1,6 @@
 package aquarium;
 
 import java.awt.image.BufferedImage;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,9 +9,8 @@ import java.util.List;
 
 import javax.swing.Timer;
 
-import aquarium.creatures.*;
+import aquarium.creatures.Creature;
 import aquarium.ui.AquariumFrame;
-import aquarium.ui.ControllerFrame;
 
 /**
  * The Aquarium holds the animation logic for creatures which may be 
@@ -56,13 +54,6 @@ public class Aquarium
         // add 22 to height to account for title bar
         this.frame = new AquariumFrame(this, Aquarium.WIDTH, Aquarium.HEIGHT + Aquarium.SKY_HEIGHT + 22);
         
-        ControllerFrame controllerFrame = new ControllerFrame(this);
-        
-        // Move controller to the right of the aquarium
-        Point aquariumFrameLoc = this.frame.getLocation();
-        controllerFrame.setLocation(aquariumFrameLoc.x + this.frame.getWidth(), aquariumFrameLoc.y);
-
-        controllerFrame.setVisible(true);
         this.frame.setVisible(true);  
     }
     
