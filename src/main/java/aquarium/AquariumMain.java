@@ -1,8 +1,6 @@
-import java.awt.Point;
+package aquarium;
 
-import aquarium.Aquarium;
-import aquarium.ui.AquariumFrame;
-import aquarium.ui.ControllerFrame;
+import java.awt.Point;
 
 /**
  * Class holding the main method for the AP Aquarium.
