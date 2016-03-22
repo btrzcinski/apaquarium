@@ -139,15 +139,15 @@ public class ChangingSwimmer extends PaintedCreature
         deltaY = -deltaY;
     }
 
-    protected void paint(Graphics g)
+    public void paint(Graphics g)
     {
         g.setColor(Color.YELLOW);
         
-        g.drawLine(0, (this.height / 2) - 15, 0, (this.height / 2) + 15);
-        g.drawLine(0, (this.height / 2) - 15, (this.width / 2) + 10, this.height);
-        g.drawLine(0, (this.height / 2) + 15, (this.width / 2) + 10, 0);
-        g.drawLine((this.width / 2) + 10, this.height, this.width, this.height / 2);
-        g.drawLine((this.width / 2) + 10, 0, this.width, this.height / 2);
+        g.drawLine(0, (getHeight() / 2) - 15, 0, (getHeight() / 2) + 15);
+        g.drawLine(0, (getHeight() / 2) - 15, (getWidth() / 2) + 10, getHeight());
+        g.drawLine(0, (getHeight() / 2) + 15, (getWidth() / 2) + 10, 0);
+        g.drawLine((getWidth() / 2) + 10, getHeight(), getWidth(), getHeight() / 2);
+        g.drawLine((getWidth() / 2) + 10, 0, getWidth(), getHeight() / 2);
     }
     
 }

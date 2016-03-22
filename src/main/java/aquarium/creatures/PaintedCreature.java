@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 public abstract class PaintedCreature implements Creature
 {
     private String name;
-    protected final int width;
-    protected final int height;
+    private int width;
+    private int height;
     private Point location;
     
     /**
@@ -51,6 +51,46 @@ public abstract class PaintedCreature implements Creature
         return appearance;
     }
     
+    /**
+     * Gets the width of the PaintedCreature.
+     * 
+     * @return Width, in pixels
+     */
+    public int getWidth()
+    {
+    	return this.width;
+    }
+    
+    /**
+     * Sets the width of the PaintedCreature.
+     * 
+     * @param w Width, in pixels
+     */
+    public void setWidth(int w)
+    {
+    	this.width = w;
+    }
+    
+    /**
+     * Gets the height of the PaintedCreature.
+     * 
+     * @return Height, in pixels
+     */
+    public int getHeight()
+    {
+    	return this.height;
+    }
+    
+    /**
+     * Sets the height of the PaintedCreature.
+     * 
+     * @param h Height, in pixels
+     */
+    public void setHeight(int h)
+    {
+    	this.height = h;
+    }
+    
     public abstract void updateLocation();
     
     public abstract void hitLeftWall();
@@ -63,5 +103,5 @@ public abstract class PaintedCreature implements Creature
     
     public abstract void hitClouds();
     
-    protected abstract void paint(Graphics g);
+    public abstract void paint(Graphics g);
 }
