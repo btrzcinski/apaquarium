@@ -26,7 +26,9 @@ import aquarium.creatures.Creature;
 
 public class ControllerPanel extends JPanel
 {
-    private class CreatureViewModel
+	private static final long serialVersionUID = 1L;
+
+	private class CreatureViewModel
     {
         private Creature creature;
         
@@ -47,7 +49,7 @@ public class ControllerPanel extends JPanel
     }
     
     private Aquarium aquarium;
-    private JList<Constructor> constructorList;
+    private JList<Constructor<?>> constructorList;
     private JList<CreatureViewModel> creatureList;
     
     public ControllerPanel(Aquarium aquarium)
@@ -116,7 +118,7 @@ public class ControllerPanel extends JPanel
         add(buttonPanel, BorderLayout.NORTH);
         
         JPanel addCreaturesPanel = new JPanel(new BorderLayout());
-        constructorList = new JList<Constructor>(findConstructibleCreatureClasses());
+        constructorList = new JList<Constructor<?>>(findConstructibleCreatureClasses());
         addCreaturesPanel.add(constructorList, BorderLayout.CENTER);
         
         JPanel addButtonPanel = new JPanel(new FlowLayout());
@@ -125,7 +127,7 @@ public class ControllerPanel extends JPanel
         {
             public void actionPerformed(ActionEvent evt)
             {
-                Constructor c = constructorList.getSelectedValue();
+                Constructor<?> c = constructorList.getSelectedValue();
                 if (c == null)
                 {
                     JOptionPane.showMessageDialog(ControllerPanel.this, "Select a Creature constructor from the list.",
@@ -174,7 +176,7 @@ public class ControllerPanel extends JPanel
         add(addRemoveCreaturesPanel, BorderLayout.CENTER);
     }
     
-    private void createNewCreature(Constructor c)
+    private void createNewCreature(Constructor<?> c)
     {
         String constructingMsg = "Constructing: " + c.toString();
         ArrayList<Object> parameters = new ArrayList<Object>();
@@ -377,14 +379,14 @@ public class ControllerPanel extends JPanel
         return vec;
     }
     
-    private Vector<Constructor> findConstructibleCreatureClasses()
+    private Vector<Constructor<?>> findConstructibleCreatureClasses()
     {
-        Vector<Constructor> constructors = new Vector<Constructor>();
+        Vector<Constructor<?>> constructors = new Vector<Constructor<?>>();
         for(String c : findClassesInCreaturesPackage())
         {
             try
             {
-                Class cl = Class.forName(c);
+                Class<?> cl = Class.forName(c);
                 if (Modifier.isAbstract(cl.getModifiers()))
                 {
                     continue;

@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import aquarium.Aquarium;
 import aquarium.creatures.Creature;
-import aquarium.creatures.LineSwimmer;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +13,9 @@ import java.util.List;
 
 public class AquariumPanel extends JPanel
 {
-    private static Color SKY_COLOR = new Color(108, 199, 248);
+	private static final long serialVersionUID = 1L;
+	
+	private static Color SKY_COLOR = new Color(108, 199, 248);
     private static Color WATER_COLOR = new Color(34, 46, 214);
     
     private Aquarium aquarium;

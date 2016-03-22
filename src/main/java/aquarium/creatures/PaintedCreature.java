@@ -2,7 +2,6 @@ package aquarium.creatures;
 
 import java.awt.Point;
 import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**

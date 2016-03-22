@@ -7,7 +7,9 @@ import aquarium.Aquarium;
 
 public class ControllerFrame extends JFrame
 {
-    private ControllerPanel controllerPanel;
+	private static final long serialVersionUID = 1L;
+	
+	private ControllerPanel controllerPanel;
     
     public ControllerFrame(Aquarium aquarium)
     {

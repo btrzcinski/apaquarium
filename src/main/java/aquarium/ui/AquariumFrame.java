@@ -6,6 +6,8 @@ import aquarium.Aquarium;
 
 public class AquariumFrame extends JFrame
 {
+	private static final long serialVersionUID = 1L;
+	
 	private AquariumPanel aquariumPanel;
 
 	public AquariumFrame(Aquarium aquarium, int width, int height)
