@@ -423,11 +423,13 @@ public class ControllerPanel extends JPanel
                 }
             });
             
-            for (File file : files)
+            if (files != null)
             {
-                classes.add("aquarium.creatures." + file.getName().replaceAll(".class$", ""));
+            	for (File file : files)
+                {
+                    classes.add("aquarium.creatures." + file.getName().replaceAll(".class$", ""));
+                }	
             }
-            
         }
         catch (UnsupportedEncodingException e)
         {
