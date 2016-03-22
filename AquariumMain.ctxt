@@ -1,5 +1,0 @@
-#BlueJ class context
-comment0.params=args
-comment0.target=void\ main(java.lang.String[])
-comment0.text=\r\n\ The\ main\ method\ for\ the\ AP\ Aquarium.\ The\ method\:\r\n\ <ul>\r\n\ <li>Creates\ an\ {@link\ Aquarium},\ and\ calls\ {@link\ Aquarium\#fillWithCreatures}\r\n\ <li>Creates\ an\ {@link\ AquariumFrame},\ displays\ it,\ and\ starts\ the\ Aquarium.\r\n\ </ul>\r\n\ \r\n\ @param\ \ \ args\ \ \ \ Command\ line\ arguments\ (unused)\r\n\ @see\ \ \ \ \ \ \ \ \ \ \ \ \ Aquarium\#fillWithCreatures\r\n
-numComments=1
