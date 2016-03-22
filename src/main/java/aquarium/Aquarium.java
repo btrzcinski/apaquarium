@@ -1,6 +1,7 @@
 package aquarium;
 
 import java.awt.image.BufferedImage;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,10 +12,11 @@ import javax.swing.Timer;
 
 import aquarium.creatures.*;
 import aquarium.ui.AquariumFrame;
+import aquarium.ui.ControllerFrame;
 
 /**
  * The Aquarium holds the animation logic for creatures which may be 
- * added using {@link fillWithCreatures}. It is normally created and
+ * added using {@link addCreature}. It is normally created and
  * started from AquariumMain.
  */
 public class Aquarium
@@ -38,8 +40,6 @@ public class Aquarium
     
     /** 
      * Creates an empty Aquarium.
-     * 
-     * @see     fillWithCreatures
      */
     public Aquarium()
     {
@@ -52,6 +52,18 @@ public class Aquarium
         };
         this.updateTimer = new Timer(100, timerAction);
         this.updateTimer.setRepeats(true);
+        
+        // add 22 to height to account for title bar
+        this.frame = new AquariumFrame(this, Aquarium.WIDTH, Aquarium.HEIGHT + Aquarium.SKY_HEIGHT + 22);
+        
+        ControllerFrame controllerFrame = new ControllerFrame(this);
+        
+        // Move controller to the right of the aquarium
+        Point aquariumFrameLoc = this.frame.getLocation();
+        controllerFrame.setLocation(aquariumFrameLoc.x + this.frame.getWidth(), aquariumFrameLoc.y);
+
+        controllerFrame.setVisible(true);
+        this.frame.setVisible(true);  
     }
     
     /**
@@ -101,25 +113,6 @@ public class Aquarium
             frame.repaintCanvas();
         }
     }
-    
-    /**
-     * Fills the Aquarium by creating and adding {@link Creature}s.
-     */
-    public void fillWithCreatures()
-    {
-        synchronized (creatures)
-        {
-            // Construct and add any Creatures you want here.
-            //
-            // For example:
-            // creatures.add(new SomethingFish(...));
-        }
-        
-        if (frame != null)
-        {
-            frame.repaintCanvas();
-        }
-    }
 
     /**
      * Empties the Aquarium by removing all creatures.
@@ -135,16 +128,6 @@ public class Aquarium
         {
             frame.repaintCanvas();
         }
-    }
-    
-    /**
-     * Sets the parent {@link AquariumFrame} for this Aquarium.
-     * 
-     * @param   frame   The {@link AquariumFrame} for this Aquarium.
-     */
-    public void setFrame(AquariumFrame frame)
-    {
-        this.frame = frame;
     }
     
     /**

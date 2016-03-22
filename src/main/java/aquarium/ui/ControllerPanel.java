@@ -104,17 +104,6 @@ public class ControllerPanel extends JPanel
         });
         buttonPanel.add(emptyButton);
         
-        JButton fillWithCreaturesButton = new JButton("Fill with Creatures");
-        fillWithCreaturesButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                aquarium.fillWithCreatures();
-                creatureList.setListData(createViewModelsForCreatures());
-            }
-        });
-        buttonPanel.add(fillWithCreaturesButton);
-        
         add(buttonPanel, BorderLayout.NORTH);
         
         JPanel addCreaturesPanel = new JPanel(new BorderLayout());
@@ -410,8 +399,15 @@ public class ControllerPanel extends JPanel
      */
     private Vector<String> findClassesInCreaturesPackage()
     {
+    	Vector<String> classes = new Vector<String>();
+    	
+    	// TODO: Search for student-created Creatures (from where?) and add them here
+    	// For now, at least add the default Creatures
+    	
+    	classes.add("aquarium.creatures.ChangingSwimmer");
+    	classes.add("aquarium.creatures.LineSwimmer");
+    	
         URL root = Thread.currentThread().getContextClassLoader().getResource("aquarium/creatures");
-        Vector<String> classes = new Vector<String>();
         
         try
         {
