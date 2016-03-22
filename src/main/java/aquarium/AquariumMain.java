@@ -2,6 +2,9 @@ package aquarium;
 
 import java.awt.Point;
 
+import aquarium.ui.AquariumFrame;
+import aquarium.ui.ControllerFrame;
+
 /**
  * Class holding the main method for the AP Aquarium.
  */
