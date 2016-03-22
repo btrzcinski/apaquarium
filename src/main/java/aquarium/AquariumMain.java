@@ -20,5 +20,7 @@ public class AquariumMain
         
         aquarium.addCreature(new ChangingSwimmer("Bob", 5));
         aquarium.addCreature(new LineSwimmer("Jane", 10));
+        
+        aquarium.start();
     }
 }
