@@ -31,6 +31,8 @@ public class ChangingSwimmer extends PaintedCreature
     
     /**
      * Gets the ChangingSwimmer's speed in the X direction
+     *
+     * @return  Speed in the X direction
      */
     public int getSpeedX() 
     {
@@ -40,6 +42,8 @@ public class ChangingSwimmer extends PaintedCreature
     
     /**
      * Gets the ChangingSwimmer's speed in the Y direction
+     *
+     * @return  Speed in the Y direction
      */
     public int getSpeedY()
     {
@@ -50,6 +54,8 @@ public class ChangingSwimmer extends PaintedCreature
     /**
      * Sets the ChangingSwimmer's speed in the X direction
      * <em>Note</em>: Fish need to keep moving horizontally to survive, so an X speed of 0 is not allowed
+     *
+     * @param   x   Speed in the X direction
      */
     public void setSpeedX(int x) 
     {
@@ -66,6 +72,8 @@ public class ChangingSwimmer extends PaintedCreature
     
     /**
      * Sets the ChangingSwimmer's speed in the Y direction
+     *
+     * @param   y   Speed in the Y direction
      */
     public void setSpeedY(int y)
     {
